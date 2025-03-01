@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as pose from "@mediapipe/pose";
+import Navbar from './components/Navbar'; // Import the Navbar component
 
 export default function App() {
   const videoRef = useRef(null);
@@ -57,8 +58,25 @@ export default function App() {
 
   return (
     <div>
-      <video ref={videoRef} style={{ width: "600px" }}></video>
-      <canvas ref={canvasRef} width={600} height={400} />
+      <Navbar /> {/* Include the Navbar at the top of your app */}
+      <div className="relative flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <h1 className="text-4xl font-bold text-gray-800 mt-8">PhysioTherapy App</h1>
+        <p className="text-lg text-gray-600 mt-4">Help manage your exercises with real-time feedback</p>
+
+        {/* Video and Canvas */}
+        <div className="mt-8 relative">
+          <video ref={videoRef} style={{ width: "600px", height: "auto" }}></video>
+          <canvas
+            ref={canvasRef}
+            width={600}
+            height={400}
+            className="absolute top-0 left-0"
+            style={{
+              pointerEvents: "none", // Ensures the canvas doesn't interfere with video controls or other UI elements
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
